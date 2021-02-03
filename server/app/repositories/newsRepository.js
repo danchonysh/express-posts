@@ -1,16 +1,14 @@
 const path = require('path')
 const fs = require('fs')
-const database = require('../../database/db.js')
+const News = require('../../models/news')
 
 exports.getAll = () => {
 	return database.getData('news')
 }
 
-exports.createNews = (data) => {
-	let news = database.getData('news')
-	news.unshift(data)
-	const newsJSON = JSON.stringify(news)
-	database.rewriteData(newsJSON, 'news')
+exports.createNews = async (data) => {
+	const newsItem = new News(data)
+	await newsItem.save()
 }
 
 exports.removeNews = (id) => {
