@@ -1,4 +1,7 @@
-const { Schema, model} = require('mongoose')
+const { Schema, Model, model, connection} = require('mongoose')
+const autoincr = require('mongoose-auto-increment')
+
+autoincr.initialize(connection)
 
 const postSchema = new Schema({
 	image: {
@@ -12,11 +15,18 @@ const postSchema = new Schema({
 	date: {
 		type: String,
 		required: true
-	},
-	id: {
-		type: Number,
-		required: true
 	}
 })
 
-module.exports = model('Post', postSchema)
+class Post extends Model {
+	get id() {
+		return this._id
+	}
+}
+
+postSchema.plugin(autoincr.plugin, {
+	model: 'Post_model',
+	startAt: 1
+})
+
+module.exports = model(Post, postSchema, 'posts')

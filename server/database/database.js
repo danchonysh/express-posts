@@ -4,6 +4,7 @@ const link = 'mongodb+srv://therealshady:1q2w3e4r@cluster0.esypr.mongodb.net/<db
 const createConnection = () => {
 	return mongoose.connect(link, {
 		useNewUrlParser: true,
+		useUnifiedTopology: true
 	})
 }
 

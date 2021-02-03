@@ -1,16 +1,17 @@
 const path = require('path')
 const fs = require('fs')
-const Posts = require('../../models/news')
+const Posts = require('../../models/post')
 
 exports.getAll = async () => {
-	return await Posts.find({})
+	return await Posts.find({}).exec()
 }
 
-exports.createPosts = async (data) => {
-	const post = new Posts(data)
-	await post.save()
+exports.createPost = async (data) => {
+	const post = await new Posts(data).save()
+	return post
 }
 
-exports.removePosts = async (id) => {
-	await Posts.remove({id: id})
+exports.removePost = async (id) => {
+	const deleted = await Posts.deleteOne({id}).exec()
+	return deleted
 }

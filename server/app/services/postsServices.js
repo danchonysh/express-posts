@@ -14,6 +14,7 @@ exports.createPost = async (data) => {
 		throw Error
 	}
 	const result = await postsRepository.createPost(data) 
+	return result
 }
 
 exports.removePost = async (id) => {
@@ -21,4 +22,5 @@ exports.removePost = async (id) => {
 		throw Error
 	}
 	const result = await postsRepository.removePost(+id)
+	return result
 }

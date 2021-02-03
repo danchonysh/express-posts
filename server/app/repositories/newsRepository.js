@@ -3,14 +3,15 @@ const fs = require('fs')
 const News = require('../../models/news')
 
 exports.getAll = async () => {
-	return await News.find({})
+	return await News.find({}).exec()
 }
 
 exports.createNews = async (data) => {
-	const newsItem = new News(data)
-	await newsItem.save()
+	const result = await new News(data).save()
+	return result
 }
 
-exports.removeNews = (id) => {
-	News.remove({id: id})
+exports.removeNews = async (id) => {
+	const deleted = await News.deleteOne({id}).exec()
+	return deleted
 }

@@ -14,6 +14,7 @@ exports.createNews = async (data) => {
 		throw Error
 	}
 	const result = await newsRepository.createNews(data) 
+	return result
 }
 
 exports.removeNews = async (id) => {
@@ -21,4 +22,5 @@ exports.removeNews = async (id) => {
 		throw Error
 	}
 	const result = await newsRepository.removeNews(+id)
+	return result
 }

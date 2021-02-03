@@ -1,4 +1,7 @@
-const { Schema, model} = require('mongoose')
+const { Schema, Model, model, connection} = require('mongoose')
+const autoincr = require('mongoose-auto-increment')
+
+autoincr.initialize(connection)
 
 const newsSchema = new Schema({
 	title: {
@@ -12,11 +15,18 @@ const newsSchema = new Schema({
 	date: {
 		type: String,
 		required: true
-	},
-	id: {
-		type: Number,
-		required: true
 	}
 })
 
-module.exports = model('News', newsSchema)
+class News extends Model {
+	get id() {
+		return this._id
+	}
+}
+
+newsSchema.plugin(autoincr.plugin, {
+	model: 'News_model',
+	startAt: 1
+})
+
+module.exports = model(News, newsSchema, 'news')
