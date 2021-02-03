@@ -2,8 +2,8 @@ const path = require('path')
 const fs = require('fs')
 const News = require('../../models/news')
 
-exports.getAll = () => {
-	return database.getData('news')
+exports.getAll = async () => {
+	return await News.find({})
 }
 
 exports.createNews = async (data) => {
@@ -12,8 +12,5 @@ exports.createNews = async (data) => {
 }
 
 exports.removeNews = (id) => {
-	let news = database.getData('news')
-	news = news.filter(el => el.id !== id)
-	const newsJSON = JSON.stringify(news)
-	database.rewriteData(newsJSON, 'news')
+	News.remove({id: id})
 }

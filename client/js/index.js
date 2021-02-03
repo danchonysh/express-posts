@@ -100,6 +100,7 @@ const addArticleHandler = () => {
 						const newsItem = {
 							title: title.value,
 							article: content.value,
+							date: new Date(Date.now()).toLocaleDateString(),
 							id
 						}
 						
@@ -200,6 +201,7 @@ const addPostHandler = () => {
 								newPost = {
 									image: document.querySelector(`[data-id="${id}"]`).firstElementChild.src,
 									caption: caption.value,
+									date: new Date(Date.now()).toLocaleDateString(),
 									id
 								}
 								postsArray.unshift(newPost)
@@ -209,7 +211,7 @@ const addPostHandler = () => {
 						mutation.observe(posts, {
 							childList: true
 						})
-						mutation.desconnect()
+						mutation.disconnect()
 						addModal.close()
 						setTimeout(addModal.destroy(), 250)
 					}

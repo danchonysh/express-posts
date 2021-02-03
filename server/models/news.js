@@ -1,22 +1,22 @@
-const { Scheme, model} = require('mongoose')
+const { Schema, model} = require('mongoose')
 
-const newsScheme = new Scheme({
+const newsSchema = new Schema({
 	title: {
-		Type: String,
-		Required: true
+		type: String,
+		required: true
 	},
 	article: {
-		Type: String,
-		Required: true
+		type: String,
+		required: true
 	},
 	date: {
-		Type: String,
-		Required: true
+		type: String,
+		required: true
 	},
 	id: {
-		Type: Number,
-		Required: ture
+		type: Number,
+		required: true
 	}
 })
 
-module.exports = model('News', newsScheme)
+module.exports = model('News', newsSchema)
