@@ -12,6 +12,6 @@ exports.createNews = async (data) => {
 }
 
 exports.removeNews = async (id) => {
-	const deleted = await News.deleteOne({id}).exec()
+	const deleted = await News.deleteOne({_id: id}).exec()
 	return deleted
 }

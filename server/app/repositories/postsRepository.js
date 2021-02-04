@@ -12,6 +12,6 @@ exports.createPost = async (data) => {
 }
 
 exports.removePost = async (id) => {
-	const deleted = await Posts.deleteOne({id}).exec()
+	const deleted = await Posts.deleteOne({_id: id}).exec()
 	return deleted
 }
