@@ -3,7 +3,7 @@ const fs = require('fs')
 const News = require('../../models/news')
 
 exports.getAll = async () => {
-	return await News.find({}).exec()
+	return await News.find({}).sort({_id: -1}).exec()
 }
 
 exports.createNews = async (data) => {
