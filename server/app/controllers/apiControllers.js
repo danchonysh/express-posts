@@ -1,5 +1,8 @@
 const newsServices = require('../services/newsServices')
 const postsServices = require('../services/postsServices')
+const multer = require('../../middleware/upload')
+
+const upload = multer.single('image')
 
 exports.getNews = async (req, res, next) => {
 	try {
@@ -38,9 +41,20 @@ exports.getPosts = async (req, res, next) => {
 }
 
 exports.createPost = async (req, res, next) => {
+	console.log('working-0')
 	try {
-		const result = await postsServices.createPost(req.body)
-		res.status(201).json(result)
+		console.log('working-1')
+		upload(req, res, (err) => {
+			console.log('working-2')
+			if (err) {
+				console.log(err)
+				res.json({ status: err })
+			}
+			console.log('test', req.file)
+ 		})
+		console.log('working-3')
+		// const result = await postsServices.createPost(req.body)
+		// res.status(201).json(result)
 	} catch (e) {
 		console.warn('Error: ', e)
 	}
