@@ -1,7 +1,4 @@
 const multer = require('multer')
-const path = require('path')
-
-const getDate = () =>  new Date(Date.now())
 
 const isIncluded = (element, array) => {
 	let result = 0
@@ -14,16 +11,19 @@ const isIncluded = (element, array) => {
 }
 
 const storage = multer.diskStorage({
-	destination: '../uploads',
+	destination(req, file, cb) {
+		cb(null, `server/uploads/`)
+	},
 	filename(req, file, cb) {
-		cb(null, `${getDate()}-${file.originalname}`)
+		cb(null, `${Date.now()}-${file.originalname}`)
 	} 
 })
 
 const fileFilter = (req, file, cb) => {
 	if (isIncluded(file.mimetype, [
 		'image/png',
-		'image/jpeg'
+		'image/jpeg',
+		'image/webp'
 	])) {
 		cb(null, true)
 	} else {

@@ -41,18 +41,18 @@ exports.getPosts = async (req, res, next) => {
 }
 
 exports.createPost = async (req, res, next) => {
-	console.log('working-0')
 	try {
-		console.log('working-1')
+		console.log(req.body)
 		upload(req, res, (err) => {
-			console.log('working-2')
 			if (err) {
-				console.log(err)
 				res.json({ status: err })
 			}
-			console.log('test', req.file)
+			console.log('Text fields: ', req.body)
+			console.log('File: ', req.file)
  		})
-		console.log('working-3')
+		res.status(200).json({
+			status: 'Success'
+		})
 		// const result = await postsServices.createPost(req.body)
 		// res.status(201).json(result)
 	} catch (e) {
