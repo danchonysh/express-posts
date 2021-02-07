@@ -6,11 +6,24 @@ const PORT = process.env.PORT || 3000
 const createConnection = require('./database/database')
 
 const apiRouter = require('./routes/api')
+const { callbackify } = require('util')
 
 app.use('/server/uploads', express.static(path.resolve(__dirname, './uploads')))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use(cors())
+
+const whitelist = ['http://localhost:8080']
+const corsConfig = {
+	origin: (origin, cb) => {
+		if (whitelist.indexOf(origin) !== -1) {
+			cb(null, true)
+		} else {
+			callback(new Error('Not allowed by CORS'))
+		}
+	}
+}
+
+app.use(cors(corsConfig))
 
 app.use('/api', apiRouter)
 
