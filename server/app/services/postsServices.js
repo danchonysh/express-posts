@@ -6,7 +6,6 @@ exports.getAllPosts = async () => {
 }
 
 exports.createPost = async (data) => {
-	console.log(data)
 	const {image, caption} = data
 	if (!image) {
 		throw Error

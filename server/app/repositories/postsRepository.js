@@ -12,6 +12,13 @@ exports.createPost = async (data) => {
 }
 
 exports.removePost = async (id) => {
+	const [ post ] = await Posts.find({_id: id}).exec()
+	fs.unlink(path.resolve(__dirname, `../../../${post.image}`), err => {
+		if (err) {
+			console.log(err)
+		}
+	})
+
 	const deleted = await Posts.deleteOne({_id: id}).exec()
 	return deleted
 }

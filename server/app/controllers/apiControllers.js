@@ -46,8 +46,6 @@ exports.createPost = async (req, res, next) => {
 			if (err) {
 				res.json({ status: err })
 			}
-			console.log("Тело запроса: ", req.body)
-			console.log("Файл запроса: ", req.file)
 			if (req.file && req.body) {
 				const post = {
 					image: req.file.path,
