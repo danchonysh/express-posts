@@ -3,7 +3,7 @@ const fs = require('fs')
 const Posts = require('../../models/post')
 
 exports.getAll = async () => {
-	return await Posts.find({}).exec()
+	return await Posts.find({}).sort({_id: -1}).exec()
 }
 
 exports.createPost = async (data) => {

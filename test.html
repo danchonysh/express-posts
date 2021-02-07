@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>form</title>
+</head>
+<body>
+	<form action="http://localhost:3000/api/posts" method="POST" enctype="multipart/form-data">
+		<input type="text" name="caption">
+		<input type="file" name="image">
+		<input type="submit">
+	</form>
+	<!-- <form name="newPost" enctype="multipart/form-data">
+		<input type="text" name="caption">
+		<input type="file" name="image">
+		<input type="submit">
+	</form>
+	<script>
+		const form = document.forms.newPost
+		form.addEventListener('submit', async function(e) {
+			e.preventDefault()
+			const formData = Object.fromEntries(new FormData(this).entries())
+			const { image, caption } = formData
+			const body = new FormData()
+			body.append('image', image)
+			body.append('caption', caption)
+			console.log(body)
+			const request = await fetch('http://localhost:3000/api/posts', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'multipart/form-data'
+				},
+				body: JSON.stringify(body)
+			})
+			const response = await request.json()
+			console.log(response)
+		})
+	</script> -->
+</body>
+</html>

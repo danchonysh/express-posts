@@ -42,19 +42,22 @@ exports.getPosts = async (req, res, next) => {
 
 exports.createPost = async (req, res, next) => {
 	try {
-		console.log(req.body)
-		upload(req, res, (err) => {
+		upload(req, res, async (err) => {
 			if (err) {
 				res.json({ status: err })
 			}
-			console.log('Text fields: ', req.body)
-			console.log('File: ', req.file)
+			console.log("Тело запроса: ", req.body)
+			console.log("Файл запроса: ", req.file)
+			if (req.file && req.body) {
+				const post = {
+					image: req.file.path,
+					caption: req.body.caption,
+					date: new Date(Date.now()).toLocaleString()
+				}
+				const result = await postsServices.createPost(post)
+				res.status(201).json(result)
+			}
  		})
-		res.status(200).json({
-			status: 'Success'
-		})
-		// const result = await postsServices.createPost(req.body)
-		// res.status(201).json(result)
 	} catch (e) {
 		console.warn('Error: ', e)
 	}
