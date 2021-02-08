@@ -50,6 +50,15 @@ exports.removeNews = async (req, res, next) => {
 	}
 }
 
+exports.editNews = async (req, res, next) => {
+	try {
+		const result = await newsServices.editNews(req.body, req.params.id)
+		res.status(200).json(result)
+	} catch (e) {
+		console.warn('Error: ', e)
+	}
+}
+
 exports.getPosts = async (req, res, next) => {
 	try {
 		let result

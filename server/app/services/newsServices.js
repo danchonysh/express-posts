@@ -29,3 +29,17 @@ exports.removeNews = async (id) => {
 	const result = await newsRepository.removeNews(+id)
 	return result
 }
+
+exports.editNews = async (body, id) => {
+	if (!id) {
+		throw Error
+	}
+	if (!body.title) {
+		throw Error
+	}
+	if (!body.article) {
+		throw Error
+	}
+	const result = await newsRepository.editNews(body, id)
+	return result
+}

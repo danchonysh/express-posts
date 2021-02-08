@@ -22,7 +22,7 @@ const corsConfig = {
 	}
 }
 
-// app.use(cors(corsConfig))
+app.use(cors(corsConfig))
 
 app.use('/api', apiRouter)
 
