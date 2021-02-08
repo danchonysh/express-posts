@@ -1,5 +1,10 @@
 const postsRepository = require('../repositories/postsRepository')
 
+exports.getLimitedPosts = async (limit) => {
+	const result = await postsRepository.getLimited(limit);
+	return result
+}
+
 exports.getAllPosts = async () => {
 	const result = await postsRepository.getAll();
 	return result

@@ -2,6 +2,10 @@ const path = require('path')
 const fs = require('fs')
 const Posts = require('../../models/post')
 
+exports.getLimited = async (limit) => {
+	return await Posts.find({}).sort({_id: -1}).limit(limit).exec()
+}
+
 exports.getAll = async () => {
 	return await Posts.find({}).sort({_id: -1}).exec()
 }

@@ -1,15 +1,5 @@
 const multer = require('multer')
 
-const isIncluded = (element, array) => {
-	let result = 0
-	array.forEach(el => {
-		if (el === element) {
-			result+=1
-		}
-	})
-	return result
-}
-
 const storage = multer.diskStorage({
 	destination(req, file, cb) {
 		cb(null, `server/uploads/`)
@@ -20,11 +10,8 @@ const storage = multer.diskStorage({
 })
 
 const fileFilter = (req, file, cb) => {
-	if (isIncluded(file.mimetype, [
-		'image/png',
-		'image/jpeg',
-		'image/webp'
-	])) {
+	const mimetypes = [ 'image/png', 'image/jpeg', 'image/webp' ]
+	if (mimetypes.indexOf(file.mimetype) !== -1 ) {
 		cb(null, true)
 	} else {
 		cb(null, false)

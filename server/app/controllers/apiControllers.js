@@ -4,9 +4,28 @@ const multer = require('../../middleware/upload')
 
 const upload = multer.single('image')
 
+const getParams = (url) => {
+	const params = {}
+	if (url.includes('?')) {
+		url.split('?')[1]
+			.split('&')
+			.forEach(el => {
+				const pair = el.split('=')
+				params[pair[0]] = pair[1]	
+			})
+	}
+	return params
+}
+
 exports.getNews = async (req, res, next) => {
 	try {
-		const result = await newsServices.getAllNews()
+		let result
+		const limit = +getParams(req.url).limit
+		if (limit) {
+			result = await newsServices.getLimitedNews(limit)
+		} else {
+			result = await newsServices.getAllNews()
+		}
 		res.status(200).json(result)
 	} catch (e) {
 		console.warn('Error: ', e)
@@ -33,7 +52,13 @@ exports.removeNews = async (req, res, next) => {
 
 exports.getPosts = async (req, res, next) => {
 	try {
-		const result = await postsServices.getAllPosts()
+		let result
+		const limit = +getParams(req.url).limit
+		if (limit) {
+			result = await postsServices.getLimitedPosts(limit)
+		} else {
+			result = await postsServices.getAllPosts()
+		}
 		res.status(200).json(result)
 	} catch (e) {
 		console.warn('Error: ', e)

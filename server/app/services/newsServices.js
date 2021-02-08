@@ -1,7 +1,12 @@
 const newsRepository = require('../repositories/newsRepository')
 
+exports.getLimitedNews = async (limit) => {
+	const result = await newsRepository.getLimited(limit)
+	return result
+}
+
 exports.getAllNews = async () => {
-	const result = await newsRepository.getAll();
+	const result = await newsRepository.getAll()
 	return result
 }
 
