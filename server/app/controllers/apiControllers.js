@@ -2,6 +2,9 @@ const newsServices = require('../services/newsServices')
 const postsServices = require('../services/postsServices')
 const multer = require('../../middleware/upload')
 
+const fs = require('fs')
+const path = require('path')
+
 const upload = multer.single('image')
 
 const getParams = (url) => {
@@ -101,5 +104,54 @@ exports.removePost = async (req, res, next) => {
 		res.status(200).json(result)
 	} catch (e) {
 		console.warn('Error: ', e)
+	}
+}
+
+exports.setPreview = async (req, res, next) => {
+	try {
+		upload(req, res, async (err) => {
+			if (err) {
+				res.json({ status: err })
+			}
+			if (req.file) {
+				const result = { 
+					preview: req.file.path,
+					id: +req.params.id 
+				}
+				if (req.body.prev) {
+					fs.unlink(path.resolve(__dirname, `../../../${req.body.prev}`), err => {
+						if (err) {
+							console.log(err)
+						}
+					})
+				}
+				res.status(201).json(result)
+			}
+ 		})
+	} catch (e) {
+		console.warn('Error: ', e)
+	}
+}
+
+exports.editPost = async (req, res, next) => {
+	try {
+		const result = await postsServices.editPost(req.body, req.params.id)
+		res.status(200).json(result)
+	} catch (e) {
+		console.warn('Error: ', e)
+	}
+}
+
+exports.deletePreview = async (req, res, next) => {
+	try {
+		const { preview } = req.body
+		fs.unlink(path.resolve(__dirname, `../../../${preview}`), err => {
+			if (err) {
+				console.log(err)
+			}
+		})
+		res.status(200).json({ status: 'Deleted'})
+	} catch (e) {
+
 	}
 }

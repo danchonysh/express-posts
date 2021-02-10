@@ -21,6 +21,6 @@ exports.removeNews = async (id) => {
 }
 
 exports.editNews = async (body, id) => {
-	const edited = await News.findOneAndUpdate({_id: id}, body)
-	return edited
+	const editted = await News.findOneAndUpdate({_id: id}, body).exec()
+	return editted
 }

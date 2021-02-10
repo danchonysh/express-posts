@@ -26,3 +26,15 @@ exports.removePost = async (id) => {
 	const deleted = await Posts.deleteOne({_id: id}).exec()
 	return deleted
 }
+
+exports.editPost = async (body, id) => {
+	const post = { ...body }
+	delete post.prev
+	if (body.prev) fs.unlink(path.resolve(__dirname, `../../../${body.prev}`), err => {
+		if (err) {
+			console.log(err)
+		}
+	})
+	const editted = await Posts.findOneAndUpdate({_id: id}, post).exec()
+	return editted
+}

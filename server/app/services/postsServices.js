@@ -29,3 +29,14 @@ exports.removePost = async (id) => {
 	const result = await postsRepository.removePost(+id)
 	return result
 }
+
+exports.editPost = async (body, id) => {
+	if (!id) {
+		throw Error
+	}
+	if (!body.caption && !body.image) {
+		throw Error
+	}
+	const result = await postsRepository.editPost(body, id)
+	return result
+}
