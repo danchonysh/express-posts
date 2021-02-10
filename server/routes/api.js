@@ -10,9 +10,6 @@ router.put('/news/:id', apiController.editNews)
 router.get('/posts', apiController.getPosts)
 router.post('/posts', apiController.createPost)
 router.delete('/posts/:id', apiController.removePost)
-//routes for updating posts
 router.put('/posts/:id', apiController.editPost)
-router.patch('/posts/:id', apiController.setPreview)
-router.delete('/posts', apiController.deletePreview)
 
 module.exports = router

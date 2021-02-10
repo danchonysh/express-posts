@@ -40,3 +40,14 @@ exports.editPost = async (body, id) => {
 	const result = await postsRepository.editPost(body, id)
 	return result
 }
+
+exports.editPostText = async (body, id) => {
+	if (!id) {
+		throw Error
+	}
+	if (!body.caption) {
+		throw Error
+	}
+	const result = await postsRepository.editPostText(body, id)
+	return result
+}

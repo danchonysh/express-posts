@@ -35,6 +35,14 @@ exports.editPost = async (body, id) => {
 			console.log(err)
 		}
 	})
-	const editted = await Posts.findOneAndUpdate({_id: id}, post).exec()
-	return editted
+	const edited = await Posts.findOneAndUpdate({_id: id}, post).exec()
+	edited.image = body.image
+	edited.caption = body.caption
+	return edited
+}
+
+exports.editPostText = async (body, id) => {
+	const edited = await Posts.findOneAndUpdate({_id: id}, { caption: body.caption}).exec()
+	edited.caption = body.caption
+	return edited
 }
