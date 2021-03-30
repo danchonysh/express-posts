@@ -115,14 +115,14 @@ exports.editPost = async (req, res, next) => {
 					image: req.file.path,
 					caption: req.body.caption,
 					prev: req.body.prev,
-					date: new Date(Date.now()).toLocaleString()
+					date: req.body.date
 				}
 				const result = await postsServices.editPost(post, req.params.id)
 				res.status(201).json(result)
 			} else if (req.body) {
 				const post = {
 					caption: req.body.caption,
-					date: new Date(Date.now()).toLocaleString()
+					date: req.body.date
 				}
 				const result = await postsServices.editPostText(post, req.params.id)
 				res.status(201).json(result)

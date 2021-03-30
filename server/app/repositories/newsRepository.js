@@ -1,13 +1,11 @@
-const path = require('path')
-const fs = require('fs')
 const News = require('../../models/news')
 
 exports.getLimited = async (limit) => {
-	return await News.find({}).sort({_id: -1}).limit(limit).exec()
+	return await News.find({}).limit(limit).exec()
 }
 
 exports.getAll = async () => {
-	return await News.find({}).sort({_id: -1}).exec()
+	return await News.find({}).exec()
 }
 
 exports.createNews = async (data) => {
@@ -21,6 +19,9 @@ exports.removeNews = async (id) => {
 }
 
 exports.editNews = async (body, id) => {
-	const editted = await News.findOneAndUpdate({_id: id}, body).exec()
-	return editted
+	const edited = await News.findOneAndUpdate({_id: id}, body).exec()
+	edited.title = body.title
+	edited.article = body.article
+	edited.date = new Date(Date.now()).toLocaleString()
+	return edited
 }
